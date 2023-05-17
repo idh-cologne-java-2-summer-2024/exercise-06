@@ -27,6 +27,10 @@ Der Benutzer gibt dabei immer zwei Buchstaben ein, einen für die Quelle (von wo
 
 Ihre Aufgabe besteht darin, die Klasse so fertig zu implementieren, dass das Spiel spielbar ist. Dazu müssen Sie eine geeignete Datenstruktur auswählen und in allen mit `TODO: Implement` markierten Methoden verwenden. Außerdem sollten Sie die Datenstruktur initialisieren, so dass am Anfang Scheiben der Größen 9 bis 1 auf dem linken Stab liegen.
 
+**Hinweis**
+
+Wir müssen bei dieser Implementierung zwei Anwendungsfälle unterscheiden: Ein:e Spieler:in darf nur auf die oberste Scheibe zugreifen, das entspricht einer Queue in Reinform. Um die Scheiben aber korrekt auf dem Bildschirm darstellen zu können, müssen wir -- für die Darstellung -- auch von der anderen Seite zugreifen können.
+
 ## Aufgabe 2
 
 Die sogenannte Type-Token-Relation (TTR) ist ein Standardmaß aus der Korpuslinguistik, um etwas über die sprachliche Variabilität eines Textes zu erfahren. Dabei wird die Anzahl der verschiedenen Wörter (= Types) durch die Anzahl der Wörter (= Tokens) geteilt. Der Text "Der Hund hat den Hund beschnüffelt." z.B. hätte eine TTR von 6/7, da nur das Wort "Hund" doppelt vorkommt (wir ignorieren Satzzeichen).
