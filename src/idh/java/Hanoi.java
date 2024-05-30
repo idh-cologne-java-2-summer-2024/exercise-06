@@ -3,15 +3,65 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Hanoi {
-
+	
+	private Stack<Integer> left;
+    private Stack<Integer> middle;
+    private Stack<Integer> right;
+    
 	public Hanoi() {
 		// TODO: Implement
+		 left = new Stack<>();
+	     middle = new Stack<>();
+	     right = new Stack<>();
+	     
+	     // Ausgangslage: links alle Scheiben stacken
+	     for (int i = 9; i >= 1; i--) {
+	            left.push(i);
+	        }
 	}
 	
 	private void movePiece(char from, char to) {
-		// TODO: Implement
+		// TODO: Implement -- prüft Gültigkeit
+		Stack<Integer> source = null;
+		Stack<Integer> target = null;
+
+		switch (from) {
+		case 'l':
+			source = left;
+			break;
+		case 'm':
+			source = middle;
+			break;
+		case 'r':
+			source = right;
+			break;
+		}
+
+		switch (to) {
+		case 'l':
+			target = left;
+			break;
+		case 'm':
+			target = middle;
+			break;
+		case 'r':
+			target = right;
+			break;
+		}
+
+		if (source != null && target != null && !source.isEmpty()) {
+			int piece = source.peek();
+			if (target.isEmpty() || piece < target.peek()) {
+				target.push(source.pop());
+			} else {
+				System.out.println("Dat geht nicht! Regel Nr. 1: niemals größere auf kleinere Scheiben.");
+			}
+		} else {
+			System.out.println("Der Stab war leider leer. Probiers nochmal woanders!");
+		}
 	}
 	
 	public void run() {
@@ -35,17 +85,17 @@ public class Hanoi {
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
 		// TODO: Implement
-		return null;
+		return left.iterator();
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
 		// TODO: Implement
-		return null;
+		return middle.iterator();
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
 		// TODO: Implement
-		return null;
+		return right.iterator();
 	}
 	
 	public String toString() {

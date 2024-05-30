@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class Document implements Iterable<String> {
 	String documentText;
@@ -35,10 +38,12 @@ public class Document implements Iterable<String> {
 		Document d = Document.readFromFile(new File("data/dracula.txt"));
 		int i = 0;
 		for (String token : d) {
-			System.out.println(i++ + ": " + token + " ");
+			//System.out.println(i++ + ": " + token + " ");
 			if (i > 100)
 				break;
 		}
+		double ttrValue = d.ttr();
+        System.out.println("TTR: " + ttrValue);
 	}
 
 	@Override
@@ -60,5 +65,17 @@ public class Document implements Iterable<String> {
 		};
 	}
 	
+	public double ttr() {
+        Set<String> types = new HashSet<>();
+        int tokenCount = 0;
+
+        for (String token : this) {
+            types.add(token);
+            tokenCount++;
+        }
+
+        return (double) types.size() / tokenCount;
+        
+    }
 	
 }
