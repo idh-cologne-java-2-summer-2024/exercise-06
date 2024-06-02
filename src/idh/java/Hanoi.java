@@ -3,15 +3,48 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Hanoi {
+private Stack<Integer> left;
+private Stack<Integer> middle;
+private Stack<Integer> right;
 
 	public Hanoi() {
-		// TODO: Implement
+		left = new Stack<>();
+		middle = new Stack<>();
+		right = new Stack<>();
+		
+		for (int i = 9; i > 0; i--) {
+			left.push(i);
+		}
 	}
 	
-	private void movePiece(char from, char to) {
-		// TODO: Implement
+	private Stack<Integer> getStack(char ch) throws Exception
+	{
+		switch (ch) {
+		case 'l':
+			return left;
+		case 'm': 
+			return middle;
+		case 'r':
+			return right;
+		default:
+			throw new Exception("input invalid");
+		}
+
+		
+	}
+	
+	private void movePiece(char from, char to) throws Exception {
+		Stack<Integer> source = getStack(from);
+		Stack<Integer> target = getStack(to);
+		
+		target.push(source.pop());
+		
+		if (source.empty()) {
+			throw new Exception ("stack is empty. choose another one");
+		}
 	}
 	
 	public void run() {
@@ -34,18 +67,16 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return left.iterator();
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+
+		return middle.iterator();
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return right.iterator();
 	}
 	
 	public String toString() {
