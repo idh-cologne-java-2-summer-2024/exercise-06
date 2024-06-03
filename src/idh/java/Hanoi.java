@@ -37,11 +37,7 @@ public class Hanoi {
 	
 		
 		
-		// sollte das Ergebnis des jweiligen Iterators sein, der in einen Int-Wert umgewandelt wird
-		int ffrom = 0; 
-		
-		// sollte das Ergebnis des jewiligen Iterators sein, der in einen Int-Wert umgewandelt wird
-		int tto= 12; 
+	
 		 
 		
 		switch (from) {
@@ -63,6 +59,11 @@ public class Hanoi {
 		case 'r':
        	 	getRightDescendingIterator();
        	}
+		// sollte das Ergebnis des jweiligen Iterators sein, der in einen Int-Wert umgewandelt wird
+		int ffrom = 0; 
+		
+		// sollte das Ergebnis des jewiligen Iterators sein, der in einen Int-Wert umgewandelt wird
+		int tto= 12; 
 		
 		if (from > to) {
 			// move from to to 
