@@ -1,9 +1,11 @@
 package idh.java;
 
 import java.io.BufferedReader;
+
 import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Stack;
+import java.util.ArrayList; 
 
 public class Hanoi {
 
@@ -32,14 +34,21 @@ public class Hanoi {
 // Ich muss drei Stacks erstellen, mit den jeweiligen Namen. 
 // es handelt sich hier um einen Stack, von daher erstmal erstellen, dass es drei Stück gibt. 
 	private void movePiece(char from, char to) { 
+	
+		
+		
+		// sollte das Ergebnis des jweiligen Iterators sein, der in einen Int-Wert umgewandelt wird
 		int ffrom = 0; 
+		
+		// sollte das Ergebnis des jewiligen Iterators sein, der in einen Int-Wert umgewandelt wird
 		int tto= 12; 
 		 
 		
 		switch (from) {
         case 'l':
-             getLeftDescendingIterator();
+             int k = l.peek();
              
+           
         case 'm':
         	 getMiddleDescendingIterator();
         case 'r':
@@ -86,6 +95,7 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
+		Stack<Integer>l = new ArrayList<>();
 		
 		return null; 
 	}
