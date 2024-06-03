@@ -1,81 +1,75 @@
 package idh.java;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Iterator;
+import java.util.Stack;
 
 public class Hanoi {
+    private Stack<Integer> left;
+    private Stack<Integer> middle;
+    private Stack<Integer> right;
 
-	public Hanoi() {
-		// TODO: Implement
-	}
-	
-	private void movePiece(char from, char to) {
-		// TODO: Implement
-	}
-	
-	public void run() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		while (true) {
-			try {
-				System.out.println(this);
-				System.out.print("Enter source and target stick (will move top piece):");
-				String s = br.readLine();
-				if (s.matches("^([lmr])([lmr])$")) {
-					char source = s.charAt(0);
-					char target = s.charAt(1);
-					movePiece(source, target);
-				}
-			} catch (Exception e) {
-				System.out.println("Try again, something's not right.");
-				// e.printStackTrace();
-			} 
-		}
-	}
-	
-	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
+    public Hanoi() {
+        left = new Stack<>();
+        middle = new Stack<>();
+        right = new Stack<>();
 
-	}
-	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+        // Initialize the left stack with disks 9 to 1
+        for (int i = 9; i >= 1; i--) {
+            left.push(i);
+        }
+    }
 
-	}
-	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
-	}
-	
-	public String toString() {
-		StringBuilder b = new StringBuilder();
-		b.append("  |\n l|");
-		Iterator<Integer> iter;
-		iter = this.getLeftDescendingIterator();
-		while(iter.hasNext()) {
-			b.append(iter.next());
-			b.append(' ');
-		}
-		b.append("\n  |\n m|");
-		iter = this.getMiddleDescendingIterator();
-		while(iter.hasNext()) {
-			b.append(iter.next());
-			b.append(' ');
-		}
-		b.append("\n  |\n r|");
-		iter = this.getRightDescendingIterator();
-		while(iter.hasNext()) {
-			b.append(iter.next());
-			b.append(' ');
-		}
-		b.append("\n  |");
-		return b.toString();
-	}
-	
-	public static void main(String[] args) {
-		Hanoi hanoi = new Hanoi();
-		hanoi.run();
-	}
+    public void move(char from, char to) {
+        Stack<Integer> source = getStack(from);
+        Stack<Integer> destination = getStack(to);
 
+        if (source.isEmpty()) {
+            System.out.println("Invalid move: source stack is empty.");
+            return;
+        }
+
+        if (!destination.isEmpty() && source.peek() > destination.peek()) {
+            System.out.println("Invalid move: cannot place larger disk on top of smaller disk.");
+            return;
+        }
+
+        destination.push(source.pop());
+    }
+
+    private Stack<Integer> getStack(char stack) {
+        switch (stack) {
+            case 'l': return left;
+            case 'm': return middle;
+            case 'r': return right;
+            default: throw new IllegalArgumentException("Invalid stack: " + stack);
+        }
+    }
+
+    public void print() {
+        System.out.println("l|" + stackToString(left));
+        System.out.println("m|" + stackToString(middle));
+        System.out.println("r|" + stackToString(right));
+    }
+
+    private String stackToString(Stack<Integer> stack) {
+        StringBuilder sb = new StringBuilder();
+        for (int disk : stack) {
+            sb.append(disk).append(" ");
+        }
+        return sb.toString().trim();
+    }
+
+    public static void main(String[] args) {
+        Hanoi game = new Hanoi();
+        game.print();
+        
+        // Example moves
+        game.move('l', 'r');
+        game.print();
+        
+        game.move('l', 'm');
+        game.print();
+        
+        game.move('r', 'm');
+        game.print();
+    }
 }
