@@ -3,16 +3,48 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Hanoi {
-
+	private Stack<Integer> left;
+    private Stack<Integer> middle;
+    private Stack<Integer> right;
+	
 	public Hanoi() {
-		// TODO: Implement
-	}
+		left = new Stack<>();
+        middle = new Stack<>();
+        right = new Stack<>();
+        
+        for (int i = 9; i >= 1; i--) {
+            left.push(i);
+        }
+    }
 	
 	private void movePiece(char from, char to) {
-		// TODO: Implement
+		 Stack<Integer> source = getStack(from);
+	     Stack<Integer> target = getStack(to);
+	        
+	     	if (source.isEmpty()) {
+	     		System.out.println("No disk to move from " + from);
+	            return;
+	        }
+	        
+	        if (!target.isEmpty() && source.peek() > target.peek()) {
+	            System.out.println("Cannot move larger disk onto smaller disk");
+	            return;
+	        }
+	        
+	        target.push(source.pop());
 	}
+	
+	private Stack<Integer> getStack(char c) {
+        switch (c) {
+            case 'l': return left;
+            case 'm': return middle;
+            case 'r': return right;
+            default: throw new IllegalArgumentException("Invalid stick: " + c);
+        }
+    }
 	
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,18 +66,15 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
-
+		return left.iterator();
 	}
+	
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
-
+		return middle.iterator();
 	}
+	
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return right.iterator();
 	}
 	
 	public String toString() {
