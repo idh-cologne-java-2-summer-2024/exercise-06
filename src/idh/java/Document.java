@@ -1,56 +1,19 @@
-package idh.java;
+class Document:
+    def __init__(self, filename):
+        self.filename = filename
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+    def __iter__(self):
+        with open(self.filename, 'r') as file:
+            for line in file:
+                for word in line.split():
+                    yield word.strip('.,!?";:()').lower()
 
-public class Document implements Iterable<String> {
-    private List<String> lines;
+    def ttr(self):
+        tokens = list(self)
+        types = set(tokens)
+        return len(types) / len(tokens)
 
-    public Document(String filePath) throws IOException {
-        lines = Files.readAllLines(Paths.get(filePath));
-    }
+# Nutzung der Klasse Document
+doc = Document('data/dracula.txt')
+print(doc.ttr())
 
-    @Override
-    public Iterator<String> iterator() {
-        return new TokenIterator(lines);
-    }
-
-    public double ttr() {
-        Set<String> types = new HashSet<>();
-        int tokens = 0;
-
-        for (String token : this) {
-            types.add(token);
-            tokens++;
-        }
-
-        return tokens == 0 ? 0 : (double) types.size() / tokens;
-    }
-
-    public static void main(String[] args) throws IOException {
-        Document doc = new Document("data/dracula.txt");
-        System.out.println("TTR: " + doc.ttr());
-    }
-}
-
-class TokenIterator implements Iterator<String> {
-    private Iterator<String> lineIterator;
-    private Iterator<String> wordIterator;
-
-    public TokenIterator(List<String> lines) {
-        this.lineIterator = lines.iterator();
-        this.wordIterator = List.of().iterator();  // Initialize with an empty iterator
-    }
-
-    @Override
-    public boolean hasNext() {
-        return wordIterator.hasNext() || lineIterator.hasNext();
-    }
-
-    @Override
-    public String next

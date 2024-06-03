@@ -1,75 +1,106 @@
-package idh.java;
-
 import java.util.Stack;
+import java.util.Scanner;
 
 public class Hanoi {
+
+    // Die drei Stäbe als Stacks
     private Stack<Integer> left;
     private Stack<Integer> middle;
     private Stack<Integer> right;
 
+    // Initialisierung
     public Hanoi() {
         left = new Stack<>();
         middle = new Stack<>();
         right = new Stack<>();
 
-        // Initialize the left stack with disks 9 to 1
+        // Scheiben der Größen 9 bis 1 auf den linken Stab legen
         for (int i = 9; i >= 1; i--) {
             left.push(i);
         }
     }
 
-    public void move(char from, char to) {
-        Stack<Integer> source = getStack(from);
-        Stack<Integer> destination = getStack(to);
-
-        if (source.isEmpty()) {
-            System.out.println("Invalid move: source stack is empty.");
+    // Bewege eine Scheibe von einem Stab zu einem anderen
+    private void moveDisk(Stack<Integer> from, Stack<Integer> to) {
+        if (from.isEmpty()) {
+            System.out.println("Ungültiger Zug: Der Quellstab ist leer.");
             return;
         }
 
-        if (!destination.isEmpty() && source.peek() > destination.peek()) {
-            System.out.println("Invalid move: cannot place larger disk on top of smaller disk.");
+        if (!to.isEmpty() && from.peek() > to.peek()) {
+            System.out.println("Ungültiger Zug: Eine größere Scheibe kann nicht auf einer kleineren liegen.");
             return;
         }
 
-        destination.push(source.pop());
+        to.push(from.pop());
     }
 
-    private Stack<Integer> getStack(char stack) {
-        switch (stack) {
-            case 'l': return left;
-            case 'm': return middle;
-            case 'r': return right;
-            default: throw new IllegalArgumentException("Invalid stack: " + stack);
+    // Nimm Eingaben vom Benutzer und führe Züge aus
+    public void play() {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            printTowers();
+
+            System.out.print("Eingabe (z.B. lm für von links nach mitte, q für beenden): ");
+            input = scanner.nextLine();
+
+            if (input.equals("q")) {
+                break;
+            }
+
+            if (input.length() != 2) {
+                System.out.println("Ungültige Eingabe. Bitte zwei Buchstaben eingeben.");
+                continue;
+            }
+
+            char from = input.charAt(0);
+            char to = input.charAt(1);
+
+            Stack<Integer> fromStack = getStack(from);
+            Stack<Integer> toStack = getStack(to);
+
+            if (fromStack == null || toStack == null) {
+                System.out.println("Ungültige Eingabe. Erlaubte Stäbe sind l, m, r.");
+                continue;
+            }
+
+            moveDisk(fromStack, toStack);
+        }
+
+        scanner.close();
+    }
+
+    // Hole den entsprechenden Stack für einen gegebenen Buchstaben
+    private Stack<Integer> getStack(char c) {
+        switch (c) {
+            case 'l':
+                return left;
+            case 'm':
+                return middle;
+            case 'r':
+                return right;
+            default:
+                return null;
         }
     }
 
-    public void print() {
-        System.out.println("l|" + stackToString(left));
-        System.out.println("m|" + stackToString(middle));
-        System.out.println("r|" + stackToString(right));
+    // Drucke den aktuellen Zustand der Türme
+    private void printTowers() {
+        System.out.println("  | ");
+        System.out.println(" l|" + left);
+        System.out.println("  | ");
+        System.out.println(" m|" + middle);
+        System.out.println("  | ");
+        System.out.println(" r|" + right);
+        System.out.println("  | ");
+        System.out.println();
     }
 
-    private String stackToString(Stack<Integer> stack) {
-        StringBuilder sb = new StringBuilder();
-        for (int disk : stack) {
-            sb.append(disk).append(" ");
-        }
-        return sb.toString().trim();
-    }
-
+    // Hauptmethode zum Starten des Spiels
     public static void main(String[] args) {
-        Hanoi game = new Hanoi();
-        game.print();
-        
-        // Example moves
-        game.move('l', 'r');
-        game.print();
-        
-        game.move('l', 'm');
-        game.print();
-        
-        game.move('r', 'm');
-        game.print();
+        Hanoi hanoi = new Hanoi();
+        hanoi.play();
     }
 }
