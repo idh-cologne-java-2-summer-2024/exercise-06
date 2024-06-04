@@ -3,7 +3,9 @@ package idh.java;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Document implements Iterable<String> {
@@ -31,18 +33,37 @@ public class Document implements Iterable<String> {
 		this.documentText = documentText;
 	}
 	
+	
+	public double ttr() {
+		Set<String> types = new HashSet<>();
+		int count = 0;
+		
+		for (String token : this) {
+			types.add(token);
+			count++;
+		}
+		
+		return (double) types.size()/count;
+	}
+	
+	
+//verschiedene Wörter des Textes als Menge betrachten -> Kardinalität abfragen
+	
+	
+	
+	
 	public static final void main(String[] args) throws IOException {
 		Document d = Document.readFromFile(new File("data/dracula.txt"));
 		int i = 0;
 		for (String token : d) {
 			System.out.println(i++ + ": " + token + " ");
-			if (i > 100)
+			if (i > 1000)
 				break;
 		}
 	}
 
 	@Override
-	public Iterator<String> iterator() {
+	public Iterator<String> iterator() { //Anzahl Wörter im Text
 		return new Iterator<String>() {
 
 			StringTokenizer tokenizer = new StringTokenizer(documentText);

@@ -1,18 +1,60 @@
 package idh.java;
 
-import java.io.BufferedReader;
+import java.io.BufferedReader; //kleinere Zahl muss rechts von einer größeren Zahl stehen
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class Hanoi {
+	
+	LinkedList<Integer> l;
+	LinkedList<Integer> m;
+	LinkedList<Integer> r;
 
-	public Hanoi() {
-		// TODO: Implement
+	public Hanoi() { //Datenstruktur Stack implementieren
+		l = new LinkedList<Integer>();
+		m = new LinkedList<Integer>();
+		r = new LinkedList<Integer>();
+		
+		for (int i = 1; i < 10; i++) {
+			l.add(i);
+			
+		}
+		
 	}
 	
 	private void movePiece(char from, char to) {
-		// TODO: Implement
+		//lm (von l bis m verschieben)
+		LinkedList<Integer> fromList = getListFromChar(from);
+		LinkedList<Integer> toList = getListFromChar(to);
+		
+		if (!toList.isEmpty()) {
+			if (fromList.peekFirst() > toList.peekFirst()) {
+			return;
+		}
+	}		
+		
+		int first = fromList.poll(); //diese Variable befüllen wir mit dem ersten Element in unserer Liste
+		//Methode poll nimmt das erste Element einer Liste und löscht es aus
+		
+		toList.addFirst(first);
 	}
+		
+	
+	private LinkedList<Integer> getListFromChar (char lmr) {
+		
+		switch (lmr) {
+		case 'l' :
+			return l;
+		case 'm':
+			return m;
+		case 'r':
+			return r;
+		default:
+			return null;
+	}
+}
+	
 	
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,18 +76,15 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return l.descendingIterator();
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return m.descendingIterator();
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return r.descendingIterator();
 	}
 	
 	public String toString() {
