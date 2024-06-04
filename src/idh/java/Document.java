@@ -3,7 +3,9 @@ package idh.java;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Document implements Iterable<String> {
@@ -22,6 +24,21 @@ public class Document implements Iterable<String> {
 		
 		return doc;
 	}
+	//new
+			public static double ttr(  Document d) {
+				Set<String> wörter= new HashSet<String>();
+				double t = 0;
+				for(String token : d) {
+					t++;
+					wörter.add(token); //.add dafür zuständig das es keine doppelt werte gibt added es zu dem set
+				}
+				int types = wörter.size();
+				
+				System.out.println(t);
+				System.out.println(types);
+			        
+					return types/t;
+				}
 	
 	public String getDocumentText() {
 		return documentText;
@@ -31,6 +48,8 @@ public class Document implements Iterable<String> {
 		this.documentText = documentText;
 	}
 	
+					
+	
 	public static final void main(String[] args) throws IOException {
 		Document d = Document.readFromFile(new File("data/dracula.txt"));
 		int i = 0;
@@ -39,6 +58,7 @@ public class Document implements Iterable<String> {
 			if (i > 100)
 				break;
 		}
+		System.out.println(ttr(d));
 	}
 
 	@Override
@@ -61,4 +81,6 @@ public class Document implements Iterable<String> {
 	}
 	
 	
-}
+			
+   }
+
