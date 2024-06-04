@@ -3,15 +3,65 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Hanoi {
 
-	public Hanoi() {
 		// TODO: Implement
+		private Stack<Integer> left;
+	    private Stack<Integer> middle;
+	    private Stack<Integer> right;
+
+	    public Hanoi() {
+	        // TODO: Implement
+	        left = new Stack<>();
+	        middle = new Stack<>();
+	        right = new Stack<>();
+
+	        // Fill the left stack with disks of size 9 to 1
+	        for (int i = 9; i >= 1; i--) {
+	            left.push(i);
+	        }
 	}
 	
 	private void movePiece(char from, char to) {
 		// TODO: Implement
+		Stack<Integer> source;
+        Stack<Integer> target;
+
+        // Determine the source and target stacks based on the input characters
+        switch (from) {
+            case 'l':
+                source = left;
+                break;
+            case 'm':
+                source = middle;
+                break;
+            case 'r':
+                source = right;
+                break;
+            default:
+                return;
+        }
+
+        switch (to) {
+            case 'l':
+                target = left;
+                break;
+            case 'm':
+                target = middle;
+                break;
+            case 'r':
+                target = right;
+                break;
+            default:
+                return;
+        }
+
+        // Perform the move if valid
+        if (!source.isEmpty() && (target.isEmpty() || source.peek() < target.peek())) {
+            target.push(source.pop());
+        }
 	}
 	
 	public void run() {
@@ -35,17 +85,16 @@ public class Hanoi {
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
 		// TODO: Implement
-		return null;
+		return left.iterator();
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
 		// TODO: Implement
-		return null;
-
+		return middle.iterator();
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
 		// TODO: Implement
-		return null;
+		return right.iterator();
 	}
 	
 	public String toString() {
