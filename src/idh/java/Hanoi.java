@@ -2,16 +2,60 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Deque;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Hanoi {
-
+	LinkedList <Integer>l;
+	LinkedList <Integer>m;
+	LinkedList <Integer>r;
+	
 	public Hanoi() {
-		// TODO: Implement
+		l = new LinkedList<>();
+		m = new LinkedList<>();
+		r = new LinkedList<>();
+		for(int i = 1; i<=10;i++) {
+			l.add(i);
+		}
 	}
 	
-	private void movePiece(char from, char to) {
-		// TODO: Implement
+	private void movePiece(char from, char to){
+		LinkedList<Integer> fromList = getListFromChar(from);
+		LinkedList<Integer> toList = getListFromChar(to);
+		
+		//if(fromList.isEmpty()) {
+		//	return;
+		//}
+		
+		if(!toList.isEmpty()) {
+			if(fromList.peekFirst() > toList.peekLast()) {
+				System.out.println("Operation not possible");
+				return;
+			}
+		}
+		
+		int first = fromList.poll();
+		toList.addFirst(first);
+		
+	}
+	
+	private LinkedList<Integer> getListFromChar(char lmr){
+		switch (lmr) {
+		case 'l':
+			return l;
+			
+		case 'm':
+			return m;
+			
+		case 'r':
+			return r;
+			
+		default:
+			return null;
+		}
 	}
 	
 	public void run() {
@@ -34,18 +78,15 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return l.descendingIterator();
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return m.descendingIterator();
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return r.descendingIterator();
 	}
 	
 	public String toString() {
@@ -74,8 +115,10 @@ public class Hanoi {
 	}
 	
 	public static void main(String[] args) {
+		
 		Hanoi hanoi = new Hanoi();
-		hanoi.run();
+		hanoi.run()
+;		//System.out.println(l);
 	}
 
 }

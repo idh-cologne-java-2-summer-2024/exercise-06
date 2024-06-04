@@ -3,7 +3,10 @@ package idh.java;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Document implements Iterable<String> {
@@ -34,11 +37,24 @@ public class Document implements Iterable<String> {
 	public static final void main(String[] args) throws IOException {
 		Document d = Document.readFromFile(new File("data/dracula.txt"));
 		int i = 0;
+		LinkedList<String> tokenL = new LinkedList<>();
+		Set<String> TypesS = new HashSet<>();
 		for (String token : d) {
 			System.out.println(i++ + ": " + token + " ");
-			if (i > 100)
-				break;
+			tokenL.add(token);
+			TypesS.add(token);
 		}
+		System.out.println(TypesS.size());
+		System.out.println(tokenL.size());
+		System.out.println(ttr(tokenL, TypesS));
+	}
+
+	private static double ttr(LinkedList<String> tokenL, Set<String> typesS) {
+		double typesCount = (double) typesS.size();
+		double tokenCount = (double) tokenL.size();
+		double ttr = typesCount / tokenCount;
+		
+		return ttr;
 	}
 
 	@Override
