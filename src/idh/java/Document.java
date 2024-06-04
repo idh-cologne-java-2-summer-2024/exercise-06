@@ -3,6 +3,7 @@ package idh.java;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -33,12 +34,26 @@ public class Document implements Iterable<String> {
 	
 	public static final void main(String[] args) throws IOException {
 		Document d = Document.readFromFile(new File("data/dracula.txt"));
+		/*
 		int i = 0;
 		for (String token : d) {
 			System.out.println(i++ + ": " + token + " ");
 			if (i > 100)
 				break;
 		}
+		*/
+		System.out.println(ttr(d));
+	}
+	
+	public static double ttr(Document document) {
+		int i = 0;
+		HashSet<String> tokenSet = new HashSet<String>();
+		
+		for (String token : document) {
+			i++;
+			tokenSet.add(token);
+		}
+		return ((double) tokenSet.size() / i);
 	}
 
 	@Override
