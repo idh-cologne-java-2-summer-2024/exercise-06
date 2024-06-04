@@ -46,6 +46,7 @@ public class Hanoi {
 		
 		if(!toList.isEmpty())
 		if (fromList.peekFirst() > toList.peekFirst()) {
+			System.out.println("Nope. Try again!");
 			return; 
 		}
 		
