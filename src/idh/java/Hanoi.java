@@ -3,16 +3,53 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.Stack;
+
 
 public class Hanoi {
-
+	Stack <Integer> left;
+	Stack <Integer> middle; 
+	Stack <Integer> right; 
+	
 	public Hanoi() {
-		// TODO: Implement
+		left= new Stack <Integer>(); 
+		middle= new Stack <Integer>();
+		right= new Stack <Integer>();
+		
+			for(int i = 9; i>=1; i--) {
+				left.push(i);
+			}
 	}
 	
 	private void movePiece(char from, char to) {
-		// TODO: Implement
+		Stack <Integer> source= getStack(from); 
+		Stack <Integer> target= getStack(to);
+		
+		if (target.empty()||source.peek()<target.peek()) {
+			target.push(source.pop());
+		}
+		
+		if (this.left.empty() && this.middle.empty() && this.right.peek()==1) {
+			System.out.println("You've won 🎆🎉🎊");
+		}
 	}
+	
+	private Stack <Integer> getStack(char input){
+
+		if(input=='l') {
+			return this.left;
+		}
+		else if (input=='m') {
+			return this.middle;
+		}
+		else if (input=='r') {
+			return this.right;
+		}
+		else 
+			throw new IllegalArgumentException("Input is wrong");
+	}
+	
+	
 	
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,18 +71,19 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
-
+		
+		return this.left.iterator();
 	}
+	
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+		
+		return this.middle.iterator();
 
 	}
+	
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		
+		return this.right.iterator();
 	}
 	
 	public String toString() {
