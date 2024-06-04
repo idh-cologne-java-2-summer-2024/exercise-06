@@ -2,16 +2,47 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Stack;
 import java.util.Iterator;
 
 public class Hanoi {
+	private Stack<Integer> left;
+	private Stack<Integer> middle;
+	private Stack<Integer> right;
 
 	public Hanoi() {
-		// TODO: Implement
+		left = new Stack<Integer>();
+		middle = new Stack<Integer>();
+		right = new Stack<Integer>();
+		for (Integer i = 9; i >= 1; i--)
+		{
+			left.push(i);
+		}
+	}
+
+	private Stack<Integer> getStackFromChar(char c) throws Exception
+	{
+		switch (c)
+		{
+		case 'l':
+			return left;
+		case 'm':
+			return middle;
+		case 'r':
+			return right;
+		default:
+			throw new Exception("Ungültiger Name: \"" + c + "\"");
+		}
 	}
 	
-	private void movePiece(char from, char to) {
-		// TODO: Implement
+	private void movePiece(char from, char to) throws Exception {
+			Stack<Integer> fromStack = getStackFromChar(from);
+			Stack<Integer> toStack = getStackFromChar(to);
+
+			if (fromStack.empty())
+				throw new Exception(String.format("Der Stapel \"%s\" ist leer!", from));
+
+		toStack.push(fromStack.pop());
 	}
 	
 	public void run() {
@@ -21,31 +52,33 @@ public class Hanoi {
 				System.out.println(this);
 				System.out.print("Enter source and target stick (will move top piece):");
 				String s = br.readLine();
+				if (s.equals("x"))
+				{
+					System.out.println("Das Spiel Hanoi wird heruntergefahren...");
+					break;
+				}
 				if (s.matches("^([lmr])([lmr])$")) {
 					char source = s.charAt(0);
 					char target = s.charAt(1);
 					movePiece(source, target);
 				}
 			} catch (Exception e) {
-				System.out.println("Try again, something's not right.");
+				System.out.println("Try again, something's not right: " + e.getMessage());
 				// e.printStackTrace();
 			} 
 		}
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return left.iterator();
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return middle.iterator();
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return right.iterator();
 	}
 	
 	public String toString() {
