@@ -41,6 +41,7 @@ public class Document implements Iterable<String> {
 			if (i > 100)
 				break;
 		}
+		System.out.println("TTR:" + d.ttr());
 	}
 
 	@Override
