@@ -60,5 +60,9 @@ public class Document implements Iterable<String> {
 		};
 	}
 	
+	public double ttr() {
+		
+		
+	}
 	
 }
