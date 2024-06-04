@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+import java.util.HashSet;
 
 public class Document implements Iterable<String> {
 	String documentText;
@@ -31,6 +32,20 @@ public class Document implements Iterable<String> {
 		this.documentText = documentText;
 	}
 	
+	public double ttr(){
+		double ttr;
+		int tokens = 0;
+		HashSet<String> types = new HashSet<String>();
+//		Document d = Document.readFromFile(new File("data/dracula.txt"));
+		
+		for (String token : this) {
+			tokens++;
+			types.add(token);
+		}
+		
+		ttr = (double) types.size() / tokens;
+		return ttr;
+	}
 	public static final void main(String[] args) throws IOException {
 		Document d = Document.readFromFile(new File("data/dracula.txt"));
 		int i = 0;
@@ -39,6 +54,7 @@ public class Document implements Iterable<String> {
 			if (i > 100)
 				break;
 		}
+		System.out.println(d.ttr());
 	}
 
 	@Override
