@@ -3,15 +3,64 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Hanoi {
+	
+	Stack<Integer> l = new Stack<>();
+	Stack<Integer> m = new Stack<>();
+	Stack<Integer> r = new Stack<>();
 
 	public Hanoi() {
-		// TODO: Implement
+		this.l.push(8);
+		this.l.push(7);
+		this.l.push(6);
+		this.l.push(5);
+		this.l.push(4);
+		this.l.push(3);
+		this.l.push(2);
+		this.l.push(1);
 	}
 	
 	private void movePiece(char from, char to) {
-		// TODO: Implement
+		Stack<Integer> sourceStack = null;
+		Stack<Integer> targetStack = null;
+		int ring;
+		
+		switch (from) {
+			case 'l':
+				sourceStack = this.l;
+				break;
+			case 'm': 
+				sourceStack = this.m;
+				break;
+			case 'r':
+				sourceStack = this.r;
+				break;
+		}
+		switch (to) {
+			case 'l':
+				targetStack = this.l;
+				break;
+			case 'm': 
+				targetStack = this.m;
+				break;
+			case 'r':
+				targetStack = this.r;
+				break;
+		}
+		
+		    if (!sourceStack.isEmpty()) {
+		        ring = sourceStack.pop();
+	
+	        if ((targetStack.isEmpty() || ring < targetStack.peek())) {
+	            targetStack.push(ring);
+		            
+	        } else {
+	            sourceStack.push(ring);
+	        }
+	    }
+	
 	}
 	
 	public void run() {
@@ -34,18 +83,18 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
+		Iterator<Integer> iter = l.iterator();
+		return iter;
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+		Iterator<Integer> iter = m.iterator();
+		return iter;
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		Iterator<Integer> iter = r.iterator();
+		return iter;
 	}
 	
 	public String toString() {
