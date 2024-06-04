@@ -4,26 +4,24 @@ import java.io.BufferedReader;
 
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Stack;
 import java.util.ArrayList; 
 
 public class Hanoi {
-
+	private LinkedList<Integer> l;
+	private LinkedList<Integer> m;
+	private LinkedList<Integer> r;
+	
+	
 	public Hanoi() {
-		
-	Stack<Integer> l = new Stack <>();
-	l.add(9);
-	l.add(8);
-	l.add(7);
-	l.add(6);
-	l.add(5);
-	l.add(4);
-	l.add(3);
-	l.add(2);
-	l.add(1);
-	Stack<Integer> m = new Stack <>();
-	Stack<Integer> r = new Stack <>();
-		// TODO: Implement
+	
+	l = new LinkedList <>();
+	m = new LinkedList <>();
+	r = new LinkedList <>();
+	
+	for(int i= 1; i<10; i++) {
+	l.add(i);}
 	
 	
 	}
@@ -36,45 +34,45 @@ public class Hanoi {
 	private void movePiece(char from, char to) { 
 	
 		
+		LinkedList<Integer>fromList=getListFromChar(from);
+		LinkedList<Integer>toList=getListFromChar(to);
 		
-	
-		 
 		
-		switch (from) {
-        case 'l':
-             int k = l.peek();
-             
-           
-        case 'm':
-        	 getMiddleDescendingIterator();
-        case 'r':
-        	 getRightDescendingIterator();
-        	}
 		
-		switch (to) {
-		case 'l':
-            getLeftDescendingIterator(); 
-		case 'm':
-       	 	getMiddleDescendingIterator();
-		case 'r':
-       	 	getRightDescendingIterator();
-       	}
-		// sollte das Ergebnis des jweiligen Iterators sein, der in einen Int-Wert umgewandelt wird
-		int ffrom = 0; 
+		if(fromList.isEmpty()) {
+			
+			return; 
+			}
 		
-		// sollte das Ergebnis des jewiligen Iterators sein, der in einen Int-Wert umgewandelt wird
-		int tto= 12; 
-		
-		if (from > to) {
-			// move from to to 
-		
+		if(!toList.isEmpty())
+		if (fromList.peekFirst() > toList.peekFirst()) {
+			return; 
 		}
 		
 		
-//peek (from, to) wenn bei to nichts ist, dann from nach to oder wenn bei to kleiner ist, als bei 
-// from, dann from nach to 
-// pop (from), push (to)
+		int first = fromList.poll();
+		toList.addLast(first);
+		
+		
+	
+		
+		}
+		
+
+	
+	
+	private LinkedList<Integer>getListFromChar(char lmr){
+		switch (lmr) {
+		case 'l':
+            return l; 
+		case 'm':
+			return m;
+		case 'r':
+			return r;
+       	}
+		return null; 
 	}
+
 	
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -96,21 +94,19 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		Stack<Integer>l = new ArrayList<>();
-		
-		return null; 
+
+		return l.descendingIterator();
 	}
-	
 
 	
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+		
+		return m.descendingIterator();
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		
+		return r.descendingIterator();
 	}
 	
 	public String toString() {
