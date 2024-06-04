@@ -18,6 +18,7 @@ public class Document implements Iterable<String> {
 		StringBuilder b = new StringBuilder();
 		while( (ch = fileReader.read()) != -1 ) {
 			b.append((char) ch);
+			
 		}
 		fileReader.close();
 		Document doc = new Document();
