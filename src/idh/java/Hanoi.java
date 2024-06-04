@@ -3,15 +3,75 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Hanoi {
+	
+	private Stack<Integer> l;
+	
+	private Stack<Integer> m;
+	
+	private Stack<Integer> r;
+	
+	private class DescendingIterator implements Iterator<Integer> {
+		private final Stack<Integer> stack;
+		private int currentIndex;
+
+		public DescendingIterator(Stack<Integer> stack) {
+			this.stack = stack;
+			this.currentIndex = stack.size() - 1;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return currentIndex >= 0;
+		}
+
+		@Override
+		public Integer next() {
+			return stack.get(currentIndex--);
+		}
+	}
 
 	public Hanoi() {
-		// TODO: Implement
+		l = new Stack<Integer>();
+		m = new Stack<Integer>();
+		r = new Stack<Integer>();
+	
+		for (int i = 9; i >= 1; i--) {
+			l.push(i);
+			System.out.print(i + ", ");}
+		System.out.println();
+		System.out.println();
 	}
 	
 	private void movePiece(char from, char to) {
-		// TODO: Implement
+		Stack<Integer> fromT = getStack(from) ; 
+		Stack<Integer> toT = getStack(to);
+		int plate = 0;
+		
+		
+		if (fromT.isEmpty()) {
+			System.out.println("There are not plates left on this tower");
+			
+		} else if (!fromT.isEmpty() && toT.peek() < plate) {
+			System.out.println("You cannot place a bigger plate on a smaller one. Try again.");
+				
+		} else {
+			plate = fromT.pop();
+			toT.push(plate);
+		}
+
+	}
+	
+	private Stack<Integer> getStack(char tower) {
+		switch (tower) {
+			case 'l': return l;
+			case 'm': return m;
+			case 'r': return r;
+			default: System.out.println("This tower is not available");
+			return null;
+			}
 	}
 	
 	public void run() {
@@ -34,18 +94,19 @@ public class Hanoi {
 	}
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
+		
+		return new DescendingIterator(m);
 
 	}
+	
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
-
+		
+		return new DescendingIterator(m);
 	}
+	
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		
+		return new DescendingIterator(r);
 	}
 	
 	public String toString() {
@@ -77,5 +138,6 @@ public class Hanoi {
 		Hanoi hanoi = new Hanoi();
 		hanoi.run();
 	}
+	
 
 }
