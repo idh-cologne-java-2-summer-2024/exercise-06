@@ -3,7 +3,9 @@ package idh.java;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Document implements Iterable<String> {
@@ -31,6 +33,24 @@ public class Document implements Iterable<String> {
 		this.documentText = documentText;
 	}
 	
+    public double ttr() {
+        Set<String> uniqueTokens = new HashSet<>();
+        int totalTokens = 0;
+
+        for (String token : this) {
+            token = token.replaceAll("\\p{Punct}", ""); // Entfernt Satzzeichen
+            if (!token.isEmpty()) {
+                uniqueTokens.add(token.toLowerCase()); // Fügt das Token in Kleinbuchstaben zum Set hinzu
+                totalTokens++;
+            }
+        }
+
+        if (totalTokens == 0) {
+            return 0.0;
+        }
+
+        return (double) uniqueTokens.size() / totalTokens;
+    }
 	public static final void main(String[] args) throws IOException {
 		Document d = Document.readFromFile(new File("data/dracula.txt"));
 		int i = 0;

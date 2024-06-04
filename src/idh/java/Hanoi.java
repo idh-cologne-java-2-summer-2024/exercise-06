@@ -3,15 +3,60 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
-
+import java.util.Stack;
 public class Hanoi {
+	
+	private Stack<Integer> left;
+	private Stack<Integer> middle;
+	private Stack<Integer> right;
 
 	public Hanoi() {
-		// TODO: Implement
+		left = new Stack<>();
+		middle = new Stack<>();
+		right = new Stack<>();
+		
+		for(int i = 9; i>=1; i--) {
+			left.push(i);
+		}
 	}
 	
 	private void movePiece(char from, char to) {
-		// TODO: Implement
+		Stack<Integer> source;
+		Stack<Integer> target;
+		
+		switch (from) {
+		case 'l':
+			source = left;
+			break;
+		case 'm':
+			source = middle;
+			break;
+		case 'r':
+			source = right;
+			break;
+		default:
+			throw new IllegalArgumentException("Ungültige Quelle");
+			
+		
+		}
+	switch (to) {
+	case 'l':
+		target = left;
+		break;
+	case 'm':
+		target = middle;
+		break;
+	case 'r':
+		target = right;
+		break;
+	default: throw new IllegalArgumentException("Ungültiges Ziel");
+	}
+	
+	if(!source.isEmpty()&&(target.isEmpty()|| source.peek() < target.peek())) {
+		target.push(source.pop());
+	}else {
+		System.out.println("Ungültiger Zug! Eine größere Scheibe kann nicht auf eine kleinere Scheibe gelegt werden.");
+		}
 	}
 	
 	public void run() {
@@ -25,6 +70,8 @@ public class Hanoi {
 					char source = s.charAt(0);
 					char target = s.charAt(1);
 					movePiece(source, target);
+				}else {
+					System.out.println("Ungültige Eingabe! Bitte geben Sie zwei Buchstaben ein.");
 				}
 			} catch (Exception e) {
 				System.out.println("Try again, something's not right.");
@@ -35,17 +82,17 @@ public class Hanoi {
 	
 	private Iterator<Integer> getLeftDescendingIterator() {
 		// TODO: Implement
-		return null;
+		return left.iterator();
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
 		// TODO: Implement
-		return null;
+		return middle.iterator();
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
 		// TODO: Implement
-		return null;
+		return right.iterator();
 	}
 	
 	public String toString() {
