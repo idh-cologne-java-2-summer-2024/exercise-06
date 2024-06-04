@@ -48,6 +48,7 @@ public class Hanoi {
 		return null;
 	}
 	
+	
 	public String toString() {
 		StringBuilder b = new StringBuilder();
 		b.append("  |\n l|");
