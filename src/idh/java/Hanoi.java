@@ -1,17 +1,69 @@
 package idh.java;
-
+//TODO: IMPLEMENT ITERATORS, NOTHING WILL RUN BEFORE THAT
+//TODO: Replace PriorityQueue with simple LinkedLists (or Dequeue?)
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Hanoi {
+	
+	private LinkedList<Integer> l;
+	private LinkedList<Integer> m;
+	private LinkedList<Integer> r;
 
 	public Hanoi() {
-		// TODO: Implement
+// TODO: Implement maybe create new disc class? scrap that
+//		Disk Array from 1-9
+//		Disk disks[] = new Disk[9];
+//		int charCount = 30; //trying to get UInicode equivalents of numbers 1-9 /0030 --> 1, 0031 --> 2 etc. I don't think that this actually works
+//		for(int i = 0; i<disks.length;i++) {
+//			disks[i] = new Disk(0,"/00" + (char)charCount);
+//			charCount++;
+//		}
+//		Queue<Disk>dq1 = new LinkedList<>(Arrays.asList(disks)); 
+//		String gameState = this.toString();
+		l = new LinkedList<Integer>();
+		m = new LinkedList<Integer>();
+		r = new LinkedList<Integer>();
+		
+		for (int i = 1; i < 10; i++) {
+			l.add(i); //fill left stack with disks 1-9
+		}
+		
 	}
 	
 	private void movePiece(char from, char to) {
-		// TODO: Implement
+		LinkedList<Integer> fromList = getListFromChar(from);
+		LinkedList<Integer> toList = getListFromChar(to);
+		
+		if(!toList.isEmpty()) {
+			if(fromList.peekFirst() > toList.peekFirst()) {
+				return;
+			}
+		}
+		
+		
+		int first = fromList.poll();
+		toList.addFirst(first);
+		
+	}
+	
+	private LinkedList<Integer> getListFromChar(char lmr) {
+		switch (lmr) {
+		case 'l':
+			return l;
+		case'm':
+			return m;
+		case'r':
+			return r;
+		default:
+			return null;
+		}
+		
+		
 	}
 	
 	public void run() {
@@ -21,31 +73,31 @@ public class Hanoi {
 				System.out.println(this);
 				System.out.print("Enter source and target stick (will move top piece):");
 				String s = br.readLine();
-				if (s.matches("^([lmr])([lmr])$")) {
+				// [^...]--> find character NOT between brackets 
+				// ^--> Find a match at the beginning of String, $--> find match at the end of the String
+				if (s.matches("^([lmr])([lmr])$")) { 
 					char source = s.charAt(0);
 					char target = s.charAt(1);
 					movePiece(source, target);
 				}
 			} catch (Exception e) {
 				System.out.println("Try again, something's not right.");
-				// e.printStackTrace();
+				 e.printStackTrace();
+				 System.exit(-1); //exits the program and prevents my PC from catching fire...
 			} 
 		}
 	}
-	
+//	descending iterator is used for visual purposes 
 	private Iterator<Integer> getLeftDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return l.descendingIterator();
 
 	}
 	private Iterator<Integer> getMiddleDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return m.descendingIterator();
 
 	}
 	private Iterator<Integer> getRightDescendingIterator() {
-		// TODO: Implement
-		return null;
+		return r.descendingIterator();
 	}
 	
 	public String toString() {

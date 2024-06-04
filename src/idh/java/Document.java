@@ -3,7 +3,10 @@ package idh.java;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Document implements Iterable<String> {
@@ -36,9 +39,10 @@ public class Document implements Iterable<String> {
 		int i = 0;
 		for (String token : d) {
 			System.out.println(i++ + ": " + token + " ");
-			if (i > 100)
+			if (i > 300)
 				break;
 		}
+		System.out.println(d.ttr(d));
 	}
 
 	@Override
@@ -59,6 +63,21 @@ public class Document implements Iterable<String> {
 			
 		};
 	}
+//	---------------------------------------------------------------------
+//	TODO: implement 
+	public double ttr(Document d) {
+		Set<String> drac = new HashSet<String>(Arrays.asList(this.getDocumentText().split("\\s | . | , | \" |' | \n | _ | ; | : | ?")));
+//		this.setDocumentText(documentText);
+		
+//			drac.add(documentText);
+		double ttr = drac.size()/d.documentText.length(); //drac.size() might be 0...
+		System.out.println("Text length: " + documentText.length());
+		System.out.println(drac.size()); //returns 99
+//		System.out.println(drac);
+		 //why can I just use documentText here?
+		return ttr; //returns 0.0
+	}
+	
 	
 	
 }
