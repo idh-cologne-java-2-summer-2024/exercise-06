@@ -37,6 +37,7 @@ public class Hanoi {
 			case 'r':
 				sourceStack = this.r;
 				break;
+				
 		}
 		switch (to) {
 			case 'l':
