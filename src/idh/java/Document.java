@@ -39,7 +39,7 @@ public class Document implements Iterable<String> {
 		int i = 0;
 		for (String token : d) {
 			System.out.println(i++ + ": " + token + " ");
-			if (i > 300)
+			if (i > 100)
 				break;
 		}
 		System.out.println(d.ttr(d));
@@ -70,7 +70,7 @@ public class Document implements Iterable<String> {
 //		this.setDocumentText(documentText);
 		
 //			drac.add(documentText);
-		double ttr = drac.size()/d.documentText.length(); //drac.size() might be 0...
+		double ttr = (double)drac.size()/d.documentText.length(); //drac.size() might be 0...
 		System.out.println("Text length: " + documentText.length());
 		System.out.println(drac.size()); //returns 99
 //		System.out.println(drac);
